@@ -10,33 +10,55 @@ function normalize(value) {
     .trim();
 }
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function termMatches(blob, term) {
+  const normalized = normalize(term).replace(/-/g, ' ');
+  if (!normalized) return false;
+  const blobNorm = blob.replace(/-/g, ' ');
+  const pattern = new RegExp(`(?:^|[^a-z0-9])${escapeRegex(normalized)}(?:[^a-z0-9]|$)`, 'i');
+  return pattern.test(blobNorm);
+}
+
+export function findHighlightTags(job, profile) {
+  const blob = normalize(
+    `${job.title} ${job.company} ${job.location} ${job.description} ${job.contractType ?? ''}`,
+  );
+  const tags = profile.highlightTags ?? [];
+  return tags.filter((tag) => termMatches(blob, tag));
+}
+
 export function scoreJob(job, profile) {
   const blob = normalize(
     `${job.title} ${job.company} ${job.location} ${job.description} ${job.contractType ?? ''}`,
   );
 
   if (hasExcludedTerms(blob, profile)) {
-    return { score: 0, reasons: ['Escluso: ruolo non in linea con il profilo'] };
+    return { score: 0, reasons: ['Escluso: ruolo non in linea con il profilo'], highlightTags: [] };
   }
 
   if (!isMidOrAbove(blob, profile)) {
-    return { score: 0, reasons: ['Escluso: livello junior/stage'] };
+    return { score: 0, reasons: ['Escluso: livello junior/stage'], highlightTags: [] };
   }
 
   let score = 20;
   const reasons = [];
+  const highlightTags = findHighlightTags(job, profile);
+  const highlightSet = new Set(highlightTags.map((tag) => normalize(tag)));
 
   const skills = profile.skills ?? [];
   let skillHits = 0;
   for (const skill of skills) {
     const term = normalize(skill.term);
     if (!term) continue;
-    const pattern = new RegExp(`(?:^|[^a-z0-9])${escapeRegex(term)}(?:[^a-z0-9]|$)`, 'i');
-    if (pattern.test(blob)) {
+    if (termMatches(blob, skill.term)) {
       score += skill.weight ?? 5;
       skillHits += 1;
       if (reasons.length < 4) {
-        reasons.push(`Competenza: ${skill.term}`);
+        const label = highlightSet.has(term) ? `⭐ ${skill.term}` : skill.term;
+        reasons.push(`Competenza: ${label}`);
       }
     }
   }
@@ -73,11 +95,11 @@ export function scoreJob(job, profile) {
     reasons.push('Match generico sul profilo tech');
   }
 
-  return { score, reasons: [...new Set(reasons)].slice(0, 4) };
-}
-
-function escapeRegex(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return {
+    score,
+    reasons: [...new Set(reasons)].slice(0, 4),
+    highlightTags,
+  };
 }
 
 export function filterAndRankJobs(jobs, profile, options = {}) {
@@ -91,10 +113,10 @@ export function filterAndRankJobs(jobs, profile, options = {}) {
       continue;
     }
 
-    const { score, reasons } = scoreJob(job, profile);
+    const { score, reasons, highlightTags } = scoreJob(job, profile);
     if (score < minScore) continue;
 
-    scored.push({ ...job, score, reasons });
+    scored.push({ ...job, score, reasons, highlightTags });
   }
 
   scored.sort((a, b) => {

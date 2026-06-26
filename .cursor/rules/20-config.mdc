@@ -12,6 +12,7 @@ Schema principale:
 
 - `searchQueries` — query Adzuna (una richiesta per stringa)
 - `skills` — `{ term, weight }` per scoring (peso tipico 4–12)
+- `highlightTags` — tag che mostrano ⭐ nell'email quando presenti nell'annuncio
 - `excludeTerms` — substring che azzerano lo score
 - `seniorityNegative` / `seniorityPositive` — filtri livello
 - `italyKeywords` — rilevamento sede Italia/remote IT

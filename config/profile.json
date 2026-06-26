@@ -13,7 +13,29 @@
     "sviluppatore mobile",
     "software engineer",
     "sviluppatore backend",
-    "programmatore"
+    "programmatore",
+    "vibe coding",
+    "vibe coder",
+    "AI developer",
+    "LLM engineer",
+    "GitHub Copilot",
+    "agentic coding"
+  ],
+  "highlightTags": [
+    "vibe coding",
+    "vibe coder",
+    "ai-assisted",
+    "ai assisted",
+    "copilot",
+    "github copilot",
+    "cursor",
+    "llm",
+    "agentic",
+    "agentic coding",
+    "generative ai",
+    "prompt engineering",
+    "claude",
+    "openai"
   ],
   "skills": [
     { "term": "c#", "weight": 12 },
@@ -36,7 +58,20 @@
     { "term": "typescript", "weight": 5 },
     { "term": "react", "weight": 4 },
     { "term": "azure", "weight": 5 },
-    { "term": "aws", "weight": 4 }
+    { "term": "aws", "weight": 4 },
+    { "term": "vibe coding", "weight": 7 },
+    { "term": "vibe coder", "weight": 7 },
+    { "term": "ai-assisted", "weight": 7 },
+    { "term": "copilot", "weight": 7 },
+    { "term": "github copilot", "weight": 8 },
+    { "term": "cursor", "weight": 6 },
+    { "term": "llm", "weight": 7 },
+    { "term": "agentic", "weight": 7 },
+    { "term": "agentic coding", "weight": 8 },
+    { "term": "generative ai", "weight": 7 },
+    { "term": "prompt engineering", "weight": 6 },
+    { "term": "claude", "weight": 6 },
+    { "term": "openai", "weight": 5 }
   ],
   "seniorityPositive": [
     "mid",
@@ -124,7 +159,7 @@
   ],
   "jobApis": {
     "jobicy": { "enabled": true, "geo": "italy", "industry": "dev", "count": 50 },
-    "remoteok": { "enabled": true, "tags": ["dev", "engineer"] },
+    "remoteok": { "enabled": true, "tags": ["dev", "engineer", "ai"] },
     "remotive": { "enabled": true, "category": "software-dev" },
     "arbeitnow": { "enabled": true, "maxPages": 2 }
   }
