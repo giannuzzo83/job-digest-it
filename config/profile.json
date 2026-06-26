@@ -13,7 +13,9 @@
     "sviluppatore mobile",
     "software engineer",
     "sviluppatore backend",
-    "programmatore"
+    "programmatore",
+    "vibe coding",
+    "vibe coder"
   ],
   "skills": [
     { "term": "c#", "weight": 12 },
@@ -36,7 +38,9 @@
     { "term": "typescript", "weight": 5 },
     { "term": "react", "weight": 4 },
     { "term": "azure", "weight": 5 },
-    { "term": "aws", "weight": 4 }
+    { "term": "aws", "weight": 4 },
+    { "term": "vibe coding", "weight": 7 },
+    { "term": "vibe coder", "weight": 7 }
   ],
   "seniorityPositive": [
     "mid",
