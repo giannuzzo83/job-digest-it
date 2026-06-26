@@ -1,0 +1,36 @@
+---
+description: Guida alla configurazione profilo e variabili ambiente
+globs: config/**/*,.env.example,scripts/**/*
+alwaysApply: false
+---
+
+# Configurazione
+
+## `config/profile.json`
+
+Schema principale:
+
+- `searchQueries` — query Adzuna (una richiesta per stringa)
+- `skills` — `{ term, weight }` per scoring (peso tipico 4–12)
+- `excludeTerms` — substring che azzerano lo score
+- `seniorityNegative` / `seniorityPositive` — filtri livello
+- `italyKeywords` — rilevamento sede Italia/remote IT
+- `rssFeeds` — `[{ name, url, requireItaly? }]`
+- `maxJobsPerEmail`, `minMatchScore` — default sovrascrivibili da env
+
+Modifiche al profilo non richiedono cambi codice se rispettano lo schema esistente.
+
+## `.env` (vedi @.env.example)
+
+| Variabile | Uso |
+|-----------|-----|
+| `DIGEST_TO_EMAIL` | Destinatario |
+| `SMTP_*` | Invio (Gmail + app password) |
+| `ADZUNA_APP_ID`, `ADZUNA_APP_KEY` | API Adzuna |
+| `DIGEST_MAX_JOBS`, `DIGEST_MIN_SCORE` | Override soglie |
+
+Setup interattivo: `npm run setup` (@scripts/setup.mjs).
+
+## GitHub Actions
+
+Secrets richiesti elencati in @README.md. Il workflow non ha accesso a `data/jobs.db` persistente.

@@ -1,0 +1,17 @@
+---
+description: Workflow GitHub Actions e automazione CI
+globs: .github/**/*
+alwaysApply: false
+---
+
+# CI / GitHub Actions
+
+Workflow: @.github/workflows/daily-digest.yml
+
+- Trigger: cron `0 7 * * *` UTC + `workflow_dispatch`
+- Node 20, `npm ci`, poi `npm run digest`
+- Tutti i secrets da repository Settings (vedi README)
+
+**Attenzione:** SQLite in `data/` non persiste tra run Actions. Modifiche al dedup devono considerare artifact, cache, o storage esterno — vedi backlog in @.cursor/MEMORIA.md.
+
+Per test locale del workflow: `npm run digest:dry` (non richiede invio SMTP se solo dry-run).
