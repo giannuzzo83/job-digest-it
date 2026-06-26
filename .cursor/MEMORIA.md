@@ -10,7 +10,8 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Fonte Jobicy | ✅ API gratuita, geo=italy + industry=dev |
 | Fonte RemoteOK | ✅ API gratuita, filtro keyword Italia |
 | Fonte Remotive | ✅ API gratuita, categoria software-dev |
-| Fonte Arbeitnow | ✅ API gratuita, paginazione + filtro Italia |
+| Fonte Himalayas | ✅ API gratuita, country=italy + query profilo |
+| Fonte RemoteJobs.org | ✅ API gratuita, category=programming |
 | Fonte RSS | ✅ Configurabile in `profile.json`, IProgrammatori di default |
 | Filtri mid+ / Italia | ✅ `levelFilter.js` |
 | Scoring profilo | ✅ `matchJob.js`, soglia default 60 |

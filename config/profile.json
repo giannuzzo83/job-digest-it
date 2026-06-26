@@ -144,7 +144,9 @@
     "Remote OK",
     "Remotive",
     "Arbeitnow",
-    "We Work Remotely"
+    "We Work Remotely",
+    "Himalayas",
+    "RemoteJobs.org"
   ],
   "rssFeeds": [
     {
@@ -161,6 +163,18 @@
     "jobicy": { "enabled": true, "geo": "italy", "industry": "dev", "count": 50 },
     "remoteok": { "enabled": true, "tags": ["dev", "engineer", "ai"] },
     "remotive": { "enabled": true, "category": "software-dev" },
-    "arbeitnow": { "enabled": true, "maxPages": 2 }
+    "arbeitnow": { "enabled": true, "maxPages": 2 },
+    "himalayas": {
+      "enabled": true,
+      "country": "italy",
+      "limit": 20,
+      "queries": ["developer", "c#", ".net", "unity", "game developer"]
+    },
+    "remotejobs": {
+      "enabled": true,
+      "category": "programming",
+      "limit": 30,
+      "queries": ["c#", ".net", "unity", "game developer", "software engineer"]
+    }
   }
 }
