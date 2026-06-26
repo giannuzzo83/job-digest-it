@@ -16,8 +16,8 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Scoring profilo | ✅ `matchJob.js`, soglia default 60 |
 | Email HTML | ✅ `sendDigest.js` via nodemailer |
 | Dedup SQLite | ✅ `storage/db.js`, purge 60 giorni |
-| GitHub Actions | ✅ Cron giornaliero, **senza persistenza DB** |
-| Setup guidato | ✅ `npm run setup` |
+| GitHub Actions | ✅ Workflow pronto, **secrets non configurati** |
+| Setup guidato | ✅ `npm run setup` — **da completare da PC** |
 | Test unitari | ✅ scoring + filtri |
 
 ## Profilo utente di riferimento
@@ -36,7 +36,7 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 
 ## Limitazioni note
 
-- **GitHub Actions:** `data/jobs.db` non sopravvive tra run → annunci possono ripetersi
+- **Email non ancora inviata:** né `.env` locale né secrets GitHub configurati (utente farà setup da PC)
 - **Adzuna:** senza `ADZUNA_APP_ID`/`KEY` la fonte viene saltata (warning in log)
 - **RSS:** qualità variabile; `requireItaly` per feed non geografici
 - **Remote:** accettati se nel testo compaiono keyword Italia o città italiane
@@ -45,6 +45,7 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 ## Backlog miglioramenti (priorità suggerita)
 
 ### Alta priorità
+- [ ] **Setup invio email da PC** — vedi sezione «Pendente utente» sotto
 - [ ] Persistenza dedup su Actions (es. artifact/cache `jobs.db`, o store esterno tipo gist/S3)
 - [x] Feed RSS italiani curati (IProgrammatori) + API gratuite (Jobicy, RemoteOK, Remotive, Arbeitnow)
 - [ ] Gestione rate limit Adzuna più robusta (backoff, conteggio query)
@@ -74,10 +75,23 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 | Automazione CI | `.github/workflows/daily-digest.yml` |
 | Secrets / env | `.env.example`, `scripts/setup.mjs` |
 
+## Pendente utente (da PC)
+
+L'utente completerà da **PC** (non da cellulare):
+
+1. `git pull origin main && npm install`
+2. `npm run setup` — crea `.env` (Gmail + password per le app; Adzuna opzionale)
+3. `npm run digest` — prima email di prova
+4. (Opzionale) Copiare gli stessi valori in **GitHub → Settings → Secrets → Actions** per il cron giornaliero
+5. (Opzionale) **Actions → Daily job digest → Run workflow** per test da cloud
+
+Secrets richiesti: `DIGEST_TO_EMAIL`, `SMTP_*`, `DIGEST_FROM_*`; Adzuna opzionale.
+
 ## Cronologia sessioni
 
 | Data | Nota |
 |------|------|
+| 2026-06-26 | Merge PR #2 + tag AI ⭐ su `main`; setup email rimandato a PC dall'utente |
 | 2026-06-26 | Tuning filtri remote EU/EMEA, RSS We Work Remotely, fix keyword `eu` |
 
 ## Note per l'agente
