@@ -34,7 +34,6 @@ export async function fetchAdzunaJobs(profile, options = {}) {
       what,
       sort_by: 'date',
       max_days_old: String(maxDaysOld),
-      content_type: 'application/json',
     });
 
     const url = `${BASE_URL}/1?${params.toString()}`;
