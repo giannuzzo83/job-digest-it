@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-import { initEnv, loadProfile } from './config.js';
+import fs from 'node:fs';
+import path from 'node:path';
+import { initEnv, loadProfile, paths } from './config.js';
 import { buildDigestEmail, sendDigestEmail } from './email/sendDigest.js';
 import { filterAndRankJobs } from './scoring/matchJob.js';
 import { fetchAllJobs } from './sources/index.js';
@@ -9,6 +11,7 @@ initEnv();
 
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
+const saveHtml = args.has('--save-html');
 
 async function main() {
   const profile = loadProfile();
@@ -26,12 +29,21 @@ async function main() {
   const selected = fresh.slice(0, maxJobs);
   console.log(`[digest] ${selected.length} nuovi da inviare (max ${maxJobs})`);
 
-  if (dryRun) {
-    const preview = buildDigestEmail({ jobs: selected, profile });
-    console.log('\n--- ANTEPRIMA EMAIL ---');
-    console.log('Oggetto:', preview.subject);
-    console.log(preview.text);
-    return;
+  const emailContent = buildDigestEmail({ jobs: selected, profile });
+
+  if (dryRun || saveHtml) {
+    if (saveHtml) {
+      fs.mkdirSync(paths.dataDir, { recursive: true });
+      const outPath = path.join(paths.dataDir, `digest-${new Date().toISOString().slice(0, 10)}.html`);
+      fs.writeFileSync(outPath, emailContent.html, 'utf8');
+      console.log(`[digest] Salvato ${outPath}`);
+    }
+    if (dryRun) {
+      console.log('\n--- ANTEPRIMA EMAIL ---');
+      console.log('Oggetto:', emailContent.subject);
+      console.log(emailContent.text);
+      return;
+    }
   }
 
   const to = process.env.DIGEST_TO_EMAIL;
@@ -40,7 +52,7 @@ async function main() {
 
   if (!to || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
     console.error(
-      '[digest] Configura .env con DIGEST_TO_EMAIL, SMTP_USER e SMTP_PASS (vedi .env.example)',
+      '[digest] Configura .env con DIGEST_TO_EMAIL, SMTP_USER e SMTP_PASS — oppure: npm run setup',
     );
     process.exit(1);
   }
