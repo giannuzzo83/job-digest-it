@@ -33,6 +33,4 @@ jobs:
           DIGEST_FROM_NAME: ${{ secrets.DIGEST_FROM_NAME }}
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
-          DIGEST_MAX_JOBS: ${{ vars.DIGEST_MAX_JOBS }}
-          DIGEST_MIN_SCORE: ${{ vars.DIGEST_MIN_SCORE }}
         run: npm run digest

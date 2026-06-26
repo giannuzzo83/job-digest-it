@@ -13,10 +13,17 @@ const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
 const saveHtml = args.has('--save-html');
 
+function envInt(name, fallback) {
+  const raw = process.env[name];
+  if (raw == null || raw === '') return fallback;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : fallback;
+}
+
 async function main() {
   const profile = loadProfile();
-  const maxJobs = Number(process.env.DIGEST_MAX_JOBS ?? profile.maxJobsPerEmail ?? 12);
-  const minScore = Number(process.env.DIGEST_MIN_SCORE ?? profile.minMatchScore ?? 45);
+  const maxJobs = envInt('DIGEST_MAX_JOBS', profile.maxJobsPerEmail ?? 12);
+  const minScore = envInt('DIGEST_MIN_SCORE', profile.minMatchScore ?? 45);
 
   console.log('[digest] Raccolta annunci...');
   const rawJobs = await fetchAllJobs(profile, { maxDaysOld: 3 });
