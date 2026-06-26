@@ -44,6 +44,7 @@ Modifica `config/profile.json`:
 - `excludeTerms` — annunci da scartare
 - `rssFeeds` — feed RSS aggiuntivi (opzionale)
 - `jobApis` — abilita/disabilita fonti API gratuite (Jobicy, RemoteOK, Remotive, Arbeitnow)
+- `euRemoteKeywords` / `remoteSources` — regole per annunci remote EU accettati dalle board internazionali
 
 ## Comandi
 

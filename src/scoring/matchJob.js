@@ -81,7 +81,7 @@ function escapeRegex(value) {
 }
 
 export function filterAndRankJobs(jobs, profile, options = {}) {
-  const minScore = options.minScore ?? profile.minMatchScore ?? 45;
+  const minScore = options.minScore ?? profile.minMatchScore ?? 60;
   const requireItaly = options.requireItaly ?? true;
 
   const scored = [];

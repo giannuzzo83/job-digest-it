@@ -4,7 +4,7 @@
   "country": "italia",
   "minSeniority": "mid",
   "maxJobsPerEmail": 12,
-  "minMatchScore": 45,
+  "minMatchScore": 60,
   "searchQueries": [
     "sviluppatore C#",
     "sviluppatore .NET",

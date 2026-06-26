@@ -13,7 +13,7 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Fonte Arbeitnow | ✅ API gratuita, paginazione + filtro Italia |
 | Fonte RSS | ✅ Configurabile in `profile.json`, IProgrammatori di default |
 | Filtri mid+ / Italia | ✅ `levelFilter.js` |
-| Scoring profilo | ✅ `matchJob.js`, soglia default 45 |
+| Scoring profilo | ✅ `matchJob.js`, soglia default 60 |
 | Email HTML | ✅ `sendDigest.js` via nodemailer |
 | Dedup SQLite | ✅ `storage/db.js`, purge 60 giorni |
 | GitHub Actions | ✅ Cron giornaliero, **senza persistenza DB** |

@@ -23,7 +23,7 @@ function envInt(name, fallback) {
 async function main() {
   const profile = loadProfile();
   const maxJobs = envInt('DIGEST_MAX_JOBS', profile.maxJobsPerEmail ?? 12);
-  const minScore = envInt('DIGEST_MIN_SCORE', profile.minMatchScore ?? 45);
+  const minScore = envInt('DIGEST_MIN_SCORE', profile.minMatchScore ?? 60);
 
   console.log('[digest] Raccolta annunci...');
   const rawJobs = await fetchAllJobs(profile, { maxDaysOld: 3 });
