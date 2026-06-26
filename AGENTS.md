@@ -28,7 +28,7 @@ Anteprima HTML su disco: `node src/run-digest.js --save-html` → `data/digest-Y
 ```
 src/run-digest.js     → entry point (orchestrazione)
 src/config.js         → loadProfile(), initEnv(), paths
-src/sources/          → Adzuna API + RSS (fetchAllJobs)
+src/sources/          → Adzuna API + API remote gratuite + RSS (fetchAllJobs)
 src/filters/          → livello mid+, Italia, excludeTerms
 src/scoring/          → matchJob (score 0–100, filterAndRankJobs)
 src/email/            → buildDigestEmail + SMTP
@@ -39,7 +39,7 @@ config/profile.json   → profilo utente (skills, query, RSS)
 
 ### Flusso digest
 
-1. `fetchAllJobs(profile)` — Adzuna (parallelo) + RSS, dedup per `job.id`
+1. `fetchAllJobs(profile)` — Adzuna + Jobicy + RemoteOK + Remotive + Arbeitnow + RSS, dedup per `job.id`
 2. `filterAndRankJobs` — filtra Italia, score ≥ soglia, ordina per score poi data
 3. Esclude annunci già in `sent_jobs` (SQLite)
 4. Prende i primi `DIGEST_MAX_JOBS` (default 12)
@@ -51,7 +51,7 @@ Ogni job ha almeno: `id`, `source`, `title`, `company`, `location`, `url`, `desc
 Opzionali: `country`, `salaryMin`, `salaryMax`, `contractType`, `postedAt`.
 Dopo scoring: `score`, `reasons[]`.
 
-ID formato: `adzuna:<externalId>` o `rss:<base64url>`.
+ID formato: `adzuna:<id>`, `jobicy:<id>`, `remoteok:<id>`, `remotive:<id>`, `arbeitnow:<slug>` o hash da URL per RSS.
 
 ## Configurazione
 

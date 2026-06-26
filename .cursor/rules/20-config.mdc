@@ -15,7 +15,8 @@ Schema principale:
 - `excludeTerms` — substring che azzerano lo score
 - `seniorityNegative` / `seniorityPositive` — filtri livello
 - `italyKeywords` — rilevamento sede Italia/remote IT
-- `rssFeeds` — `[{ name, url, requireItaly? }]`
+- `rssFeeds` — `[{ name, url, requireItaly?, assumeItaly? }]`
+- `jobApis` — abilita/opzioni per Jobicy, RemoteOK, Remotive, Arbeitnow
 - `maxJobsPerEmail`, `minMatchScore` — default sovrascrivibili da env
 
 Modifiche al profilo non richiedono cambi codice se rispettano lo schema esistente.

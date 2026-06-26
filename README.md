@@ -6,7 +6,7 @@ Progetto **separato da BangBang** — nessun legame con il gioco.
 
 ## Cosa fa
 
-1. Cerca annunci su fonti **gratuite** (Adzuna Italia + feed RSS configurabili)
+1. Cerca annunci su fonti **gratuite** (Adzuna Italia, API remote gratuite, feed RSS)
 2. Filtra: solo Italia, esclude junior/stage/tirocini, esclude ruoli fuori profilo
 3. Assegna un **punteggio di match** (0–100) in base alle competenze in `config/profile.json`
 4. Ti manda **1 email al giorno** con i migliori link (max 12, niente duplicati)
@@ -43,6 +43,7 @@ Modifica `config/profile.json`:
 - `skills` — competenze con peso per lo scoring
 - `excludeTerms` — annunci da scartare
 - `rssFeeds` — feed RSS aggiuntivi (opzionale)
+- `jobApis` — abilita/disabilita fonti API gratuite (Jobicy, RemoteOK, Remotive, Arbeitnow)
 
 ## Comandi
 
@@ -92,7 +93,11 @@ Opzionale in **Variables**: `DIGEST_MAX_JOBS`, `DIGEST_MIN_SCORE`.
 | Fonte | Copertura | Note |
 |-------|-----------|------|
 | **Adzuna Italia** | Ampia, aggregatore IT | API free 250 req/giorno — principale |
-| **RSS remoti** | Parziale | Filtrati per keyword Italia; bonus se cerchi remote |
+| **Jobicy** | Remote IT/Europa, tech | API gratuita, filtro `geo=italy` |
+| **Remote OK** | Remote worldwide | API gratuita, filtrata per keyword Italia |
+| **Remotive** | Remote tech | API gratuita, categoria software-dev |
+| **Arbeitnow** | Europa / DACH | API gratuita, filtrata per keyword Italia |
+| **RSS** | Variabile | Es. IProgrammatori.it in `profile.json` |
 
 Non usiamo LinkedIn/Indeed scraping (ToS restrittivi). Puoi aggiungere feed RSS italiani in `profile.json` se ne trovi di pubblici.
 
@@ -101,7 +106,7 @@ Non usiamo LinkedIn/Indeed scraping (ToS restrittivi). Puoi aggiungere feed RSS 
 ```
 src/
 ├── run-digest.js      # entry point
-├── sources/           # Adzuna + RSS
+├── sources/           # Adzuna, API remote, RSS
 ├── scoring/           # match profilo
 ├── filters/           # mid+, Italia
 ├── email/             # HTML + invio SMTP

@@ -93,5 +93,17 @@
     "smart working",
     "ibrido"
   ],
-  "rssFeeds": []
+  "rssFeeds": [
+    {
+      "name": "IProgrammatori.it",
+      "url": "https://www.iprogrammatori.it/rss/offerte-di-lavoro.xml",
+      "assumeItaly": true
+    }
+  ],
+  "jobApis": {
+    "jobicy": { "enabled": true, "geo": "italy", "industry": "dev", "count": 50 },
+    "remoteok": { "enabled": true, "tags": ["dev", "engineer"] },
+    "remotive": { "enabled": true, "category": "software-dev" },
+    "arbeitnow": { "enabled": true, "maxPages": 2 }
+  }
 }

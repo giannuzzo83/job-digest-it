@@ -7,7 +7,11 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Area | Stato |
 |------|--------|
 | Fonte Adzuna Italia | ✅ API gratuita, rate limit ~300ms tra query |
-| Fonte RSS | ✅ Configurabile in `profile.json`, array `rssFeeds` vuoto di default |
+| Fonte Jobicy | ✅ API gratuita, geo=italy + industry=dev |
+| Fonte RemoteOK | ✅ API gratuita, filtro keyword Italia |
+| Fonte Remotive | ✅ API gratuita, categoria software-dev |
+| Fonte Arbeitnow | ✅ API gratuita, paginazione + filtro Italia |
+| Fonte RSS | ✅ Configurabile in `profile.json`, IProgrammatori di default |
 | Filtri mid+ / Italia | ✅ `levelFilter.js` |
 | Scoring profilo | ✅ `matchJob.js`, soglia default 45 |
 | Email HTML | ✅ `sendDigest.js` via nodemailer |
@@ -42,7 +46,7 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 
 ### Alta priorità
 - [ ] Persistenza dedup su Actions (es. artifact/cache `jobs.db`, o store esterno tipo gist/S3)
-- [ ] Feed RSS italiani curati (Remotive IT, startup job board, ecc.) in `profile.json`
+- [x] Feed RSS italiani curati (IProgrammatori) + API gratuite (Jobicy, RemoteOK, Remotive, Arbeitnow)
 - [ ] Gestione rate limit Adzuna più robusta (backoff, conteggio query)
 
 ### Media priorità
@@ -53,7 +57,7 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 - [ ] Webhook o notifica Telegram oltre email
 
 ### Bassa priorità / esplorazione
-- [ ] Altre API job gratuite (RemoteOK, Arbeitnow, ecc.) con adapter in `sources/`
+- [x] Altre API job gratuite (RemoteOK, Arbeitnow, Jobicy, Remotive) con adapter in `sources/`
 - [ ] Mini dashboard locale (Express + lettura DB)
 - [ ] Export CSV settimanale degli annunci inviati
 - [ ] Supporto multi-profilo (più destinatari)
@@ -74,7 +78,7 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 
 | Data | Nota |
 |------|------|
-| 2026-06-26 | Creati `AGENTS.md`, `.cursor/rules/`, `.cursor/environment.json`, questo file di memoria |
+| 2026-06-26 | Ampliate fonti gratuite: Jobicy, RemoteOK, Remotive, Arbeitnow + RSS IProgrammatori |
 
 ## Note per l'agente
 
