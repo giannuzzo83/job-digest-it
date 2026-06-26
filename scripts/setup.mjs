@@ -34,20 +34,23 @@ async function main() {
   console.log('Servono 3 cose che solo tu puoi creare (5 minuti totali):');
   console.log('  1. Email dove ricevere il digest');
   console.log('  2. Password per le app Gmail → https://myaccount.google.com/apppasswords');
-  console.log('  3. API Adzuna gratis → https://developer.adzuna.com/signup\n');
+  console.log('  3. API Adzuna gratis → https://developer.adzuna.com/signup');
+  console.log('  4. (Opz.) API Jooble gratis → https://jooble.org/api/about\n');
 
   const toEmail = await ask('Email destinatario (DIGEST_TO_EMAIL)');
   const smtpUser = await ask('Email Gmail per invio (SMTP_USER)', toEmail);
   const smtpPass = await ask('Password per le app Gmail (SMTP_PASS)');
-  const adzunaId = await ask('Adzuna APP_ID');
-  const adzunaKey = await ask('Adzuna APP_KEY');
+  const adzunaId = await ask('Adzuna APP_ID (invio per saltare)');
+  const adzunaKey = await ask('Adzuna APP_KEY (invio per saltare)');
+  const joobleKey = await ask('Jooble API key (invio per saltare)');
 
   const env = fs.readFileSync(examplePath, 'utf8')
     .replace('tuo@email.com', toEmail)
     .replace('tuo@gmail.com', smtpUser)
     .replace('xxxx xxxx xxxx xxxx', smtpPass)
     .replace('ADZUNA_APP_ID=', `ADZUNA_APP_ID=${adzunaId}`)
-    .replace('ADZUNA_APP_KEY=', `ADZUNA_APP_KEY=${adzunaKey}`);
+    .replace('ADZUNA_APP_KEY=', `ADZUNA_APP_KEY=${adzunaKey}`)
+    .replace('JOOBLE_API_KEY=', `JOOBLE_API_KEY=${joobleKey}`);
 
   fs.writeFileSync(envPath, env, { mode: 0o600 });
   console.log(`\n✓ Scritto ${envPath}\n`);

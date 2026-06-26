@@ -34,6 +34,7 @@ cp .env.example .env
 | `DIGEST_TO_EMAIL` | La tua email dove ricevere il digest |
 | `SMTP_*` | Credenziali SMTP (Gmail consigliato) |
 | `ADZUNA_APP_ID` / `ADZUNA_APP_KEY` | API gratuita Adzuna |
+| `JOOBLE_API_KEY` | API gratuita Jooble (jooble.org/api/about) |
 
 ### Personalizza il profilo
 
@@ -77,6 +78,7 @@ Aggiungi questi **Secrets** nel repo GitHub → Settings → Secrets:
 | `DIGEST_FROM_NAME` | `Job Digest IT` |
 | `ADZUNA_APP_ID` | da Adzuna |
 | `ADZUNA_APP_KEY` | da Adzuna |
+| `JOOBLE_API_KEY` | da Jooble |
 
 Opzionale in **Variables**: `DIGEST_MAX_JOBS`, `DIGEST_MIN_SCORE`.
 
@@ -94,6 +96,7 @@ Opzionale in **Variables**: `DIGEST_MAX_JOBS`, `DIGEST_MIN_SCORE`.
 | Fonte | Copertura | Note |
 |-------|-----------|------|
 | **Adzuna Italia** | Ampia, aggregatore IT | API free 250 req/giorno — principale |
+| **Jooble Italia** | Aggregatore internazionale | API free 500 req, `location=Italy` |
 | **Jobicy** | Remote IT/Europa, tech | API gratuita, filtro `geo=italy` |
 | **Remote OK** | Remote worldwide | API gratuita, filtrata per keyword Italia |
 | **Remotive** | Remote tech | API gratuita, categoria software-dev |

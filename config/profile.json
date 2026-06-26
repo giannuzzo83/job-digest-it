@@ -164,6 +164,7 @@
     "remoteok": { "enabled": true, "tags": ["dev", "engineer", "ai"] },
     "remotive": { "enabled": true, "category": "software-dev" },
     "arbeitnow": { "enabled": true, "maxPages": 2 },
+    "jooble": { "enabled": true, "location": "Italy", "page": 1 },
     "himalayas": {
       "enabled": true,
       "country": "italy",

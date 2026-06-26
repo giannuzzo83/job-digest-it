@@ -11,7 +11,7 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Fonte RemoteOK | ✅ API gratuita, filtro keyword Italia |
 | Fonte Remotive | ✅ API gratuita, categoria software-dev |
 | Fonte Himalayas | ✅ API gratuita, country=italy + query profilo |
-| Fonte RemoteJobs.org | ✅ API gratuita, category=programming |
+| Fonte Jooble Italia | ✅ API gratuita, location=Italy, 500 req |
 | Fonte RSS | ✅ Configurabile in `profile.json`, IProgrammatori di default |
 | Filtri mid+ / Italia | ✅ `levelFilter.js` |
 | Scoring profilo | ✅ `matchJob.js`, soglia default 60 |

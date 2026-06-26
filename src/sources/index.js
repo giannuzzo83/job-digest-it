@@ -2,15 +2,17 @@ import { fetchAdzunaJobs } from './adzuna.js';
 import { fetchArbeitnowJobs } from './arbeitnow.js';
 import { fetchHimalayasJobs } from './himalayas.js';
 import { fetchJobicyJobs } from './jobicy.js';
+import { fetchJoobleJobs } from './jooble.js';
 import { fetchRemoteJobsOrgJobs } from './remotejobs.js';
 import { fetchRemoteOkJobs } from './remoteok.js';
 import { fetchRemotiveJobs } from './remotive.js';
 import { fetchRssJobs } from './rss.js';
 
 export async function fetchAllJobs(profile, options = {}) {
-  const [adzuna, rss, jobicy, remoteok, remotive, arbeitnow, himalayas, remotejobs] =
+  const [adzuna, jooble, rss, jobicy, remoteok, remotive, arbeitnow, himalayas, remotejobs] =
     await Promise.all([
       fetchAdzunaJobs(profile, options),
+      fetchJoobleJobs(profile),
       fetchRssJobs(profile),
       fetchJobicyJobs(profile),
       fetchRemoteOkJobs(profile),
@@ -23,6 +25,7 @@ export async function fetchAllJobs(profile, options = {}) {
   const byId = new Map();
   for (const job of [
     ...adzuna,
+    ...jooble,
     ...rss,
     ...jobicy,
     ...remoteok,
