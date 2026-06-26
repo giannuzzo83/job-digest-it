@@ -1,4 +1,4 @@
-import { hasExcludedTerms, isItalianListing, isMidOrAbove } from '../filters/levelFilter.js';
+import { hasExcludedTerms, isMidOrAbove, isRelevantListing } from '../filters/levelFilter.js';
 
 function normalize(value) {
   return (value ?? '')
@@ -81,13 +81,13 @@ function escapeRegex(value) {
 }
 
 export function filterAndRankJobs(jobs, profile, options = {}) {
-  const minScore = options.minScore ?? profile.minMatchScore ?? 45;
+  const minScore = options.minScore ?? profile.minMatchScore ?? 60;
   const requireItaly = options.requireItaly ?? true;
 
   const scored = [];
 
   for (const job of jobs) {
-    if (requireItaly && !isItalianListing(job, profile)) {
+    if (requireItaly && !isRelevantListing(job, profile)) {
       continue;
     }
 

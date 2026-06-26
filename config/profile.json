@@ -4,7 +4,7 @@
   "country": "italia",
   "minSeniority": "mid",
   "maxJobsPerEmail": 12,
-  "minMatchScore": 45,
+  "minMatchScore": 60,
   "searchQueries": [
     "sviluppatore C#",
     "sviluppatore .NET",
@@ -93,5 +93,39 @@
     "smart working",
     "ibrido"
   ],
-  "rssFeeds": []
+  "euRemoteKeywords": [
+    "europe",
+    "european",
+    "emea",
+    "eea",
+    "worldwide",
+    "anywhere",
+    "work from anywhere",
+    "fully remote",
+    "remote first"
+  ],
+  "remoteSources": [
+    "Jobicy",
+    "Remote OK",
+    "Remotive",
+    "Arbeitnow",
+    "We Work Remotely"
+  ],
+  "rssFeeds": [
+    {
+      "name": "IProgrammatori.it",
+      "url": "https://www.iprogrammatori.it/rss/offerte-di-lavoro.xml",
+      "assumeItaly": true
+    },
+    {
+      "name": "We Work Remotely",
+      "url": "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+    }
+  ],
+  "jobApis": {
+    "jobicy": { "enabled": true, "geo": "italy", "industry": "dev", "count": 50 },
+    "remoteok": { "enabled": true, "tags": ["dev", "engineer"] },
+    "remotive": { "enabled": true, "category": "software-dev" },
+    "arbeitnow": { "enabled": true, "maxPages": 2 }
+  }
 }
