@@ -35,11 +35,16 @@ export function buildDigestEmail({ jobs, profile, date = new Date() }) {
       : jobs
           .map((job, index) => {
             const salary = formatSalary(job);
+            const hasHighlights = (job.highlightTags ?? []).length > 0;
+            const titlePrefix = hasHighlights ? '⭐ ' : '';
+            const highlightBadges = (job.highlightTags ?? [])
+              .map((tag) => `<span style="display:inline-block;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;margin-right:6px;">⭐ ${escapeHtml(tag)}</span>`)
+              .join('');
             const reasons = (job.reasons ?? []).map((r) => `<li>${escapeHtml(r)}</li>`).join('');
             return `
         <div style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #e5e7eb;">
           <h2 style="margin:0 0 8px;font-size:18px;color:#111827;">
-            ${index + 1}. <a href="${escapeHtml(job.url)}" style="color:#1d4ed8;text-decoration:none;">${escapeHtml(job.title)}</a>
+            ${index + 1}. <a href="${escapeHtml(job.url)}" style="color:#1d4ed8;text-decoration:none;">${titlePrefix}${escapeHtml(job.title)}</a>
           </h2>
           <p style="margin:0 0 8px;color:#374151;">
             <strong>${escapeHtml(job.company)}</strong> · ${escapeHtml(job.location)} · ${escapeHtml(job.source)}
@@ -50,6 +55,7 @@ export function buildDigestEmail({ jobs, profile, date = new Date() }) {
               Match ${job.score}%
             </span>
           </p>
+          ${highlightBadges ? `<p style="margin:0 0 8px;">${highlightBadges}</p>` : ''}
           ${reasons ? `<ul style="margin:8px 0 0;padding-left:20px;color:#4b5563;font-size:14px;">${reasons}</ul>` : ''}
         </div>`;
           })
@@ -78,7 +84,9 @@ export function buildDigestEmail({ jobs, profile, date = new Date() }) {
     textLines.push('Nessun nuovo annuncio oggi che supera i filtri.');
   } else {
     for (const [i, job] of jobs.entries()) {
-      textLines.push(`${i + 1}. ${job.title} — ${job.company} (${job.score}%)`);
+      const star = (job.highlightTags ?? []).length > 0 ? '⭐ ' : '';
+      const tags = (job.highlightTags ?? []).length > 0 ? ` [${job.highlightTags.join(', ')}]` : '';
+      textLines.push(`${i + 1}. ${star}${job.title} — ${job.company} (${job.score}%)${tags}`);
       textLines.push(`   ${job.url}`);
       textLines.push(`   ${(job.reasons ?? []).join(' · ')}`);
       textLines.push('');
