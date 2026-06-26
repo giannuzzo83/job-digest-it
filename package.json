@@ -1,0 +1,28 @@
+{
+  "name": "job-digest-it",
+  "version": "1.0.0",
+  "description": "Digest giornaliero email con offerte di lavoro in Italia, filtrate per profilo mid+",
+  "type": "module",
+  "main": "src/run-digest.js",
+  "scripts": {
+    "digest": "node src/run-digest.js",
+    "digest:dry": "node src/run-digest.js --dry-run",
+    "test": "node --test src/**/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "jobs",
+    "italy",
+    "email",
+    "digest"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^11.9.1",
+    "dotenv": "^16.5.0",
+    "nodemailer": "^6.10.1",
+    "rss-parser": "^3.13.0"
+  }
+}
