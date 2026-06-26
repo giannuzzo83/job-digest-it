@@ -30,9 +30,9 @@ export async function fetchJobicyJobs(profile) {
 
     for (const item of data.jobs ?? []) {
       const geoLabel = stripHtml((item.jobGeo ?? '').replace(/&amp;/g, '&'));
-      const country = geoLabel.toLowerCase().includes('italy') || geoLabel.toLowerCase().includes('italia')
-        ? 'Italia'
-        : null;
+      const geoNorm = geoLabel.toLowerCase();
+      const country =
+        geoNorm.includes('italy') || geoNorm.includes('italia') ? 'Italia' : null;
 
       jobs.push({
         id: buildJobId('jobicy', String(item.id)),

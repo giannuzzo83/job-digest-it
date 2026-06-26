@@ -97,7 +97,7 @@ Opzionale in **Variables**: `DIGEST_MAX_JOBS`, `DIGEST_MIN_SCORE`.
 | **Remote OK** | Remote worldwide | API gratuita, filtrata per keyword Italia |
 | **Remotive** | Remote tech | API gratuita, categoria software-dev |
 | **Arbeitnow** | Europa / DACH | API gratuita, filtrata per keyword Italia |
-| **RSS** | Variabile | Es. IProgrammatori.it in `profile.json` |
+| **We Work Remotely** | Remote programming | RSS gratuito, filtrato con keyword EU/Italia |
 
 Non usiamo LinkedIn/Indeed scraping (ToS restrittivi). Puoi aggiungere feed RSS italiani in `profile.json` se ne trovi di pubblici.
 

@@ -31,7 +31,60 @@ export function isMidOrAbove(text, profile) {
 export function mentionsItaly(text, profile) {
   const haystack = normalize(text);
   const keywords = profile.italyKeywords ?? ['italia', 'italy'];
-  return keywords.some((kw) => haystack.includes(normalize(kw)));
+  return keywords.some((kw) => keywordMatches(haystack, kw));
+}
+
+export function mentionsEuRemote(text, profile) {
+  const haystack = normalize(text);
+  const keywords = profile.euRemoteKeywords ?? [
+    'europe',
+    'european',
+    'emea',
+    'eea',
+    'worldwide',
+    'anywhere',
+    'work from anywhere',
+    'fully remote',
+    'remote first',
+  ];
+  return keywords.some((kw) => keywordMatches(haystack, kw));
+}
+
+function keywordMatches(haystack, keyword) {
+  const term = normalize(keyword);
+  if (!term) return false;
+  if (term.length <= 3) {
+    return new RegExp(`(?:^|[^a-z0-9])${escapeRegex(term)}(?:[^a-z0-9]|$)`).test(haystack);
+  }
+  return haystack.includes(term);
+}
+
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+export function isRemoteJobSource(job, profile) {
+  const sources = profile.remoteSources ?? [
+    'Jobicy',
+    'Remote OK',
+    'Remotive',
+    'Arbeitnow',
+    'We Work Remotely',
+  ];
+  return sources.includes(job.source);
+}
+
+export function isRelevantListing(job, profile) {
+  if (isItalianListing(job, profile)) {
+    return true;
+  }
+
+  if (!isRemoteJobSource(job, profile)) {
+    return false;
+  }
+
+  const blob = `${job.title} ${job.company} ${job.location} ${job.description}`;
+  return mentionsEuRemote(blob, profile);
 }
 
 export function hasExcludedTerms(text, profile) {

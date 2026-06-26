@@ -39,11 +39,36 @@ describe('sources/shared', () => {
     );
   });
 
-  it('keepItalyRelevant scarta annunci senza legame con Italia', () => {
-    const profile = { italyKeywords: ['milano', 'roma', 'italia'] };
+  it('keepItalyRelevant accetta remote EU da fonti remote', () => {
+    const profile = {
+      italyKeywords: ['milano', 'roma', 'italia'],
+      euRemoteKeywords: ['europe', 'emea'],
+      remoteSources: ['Jobicy'],
+    };
     assert.equal(
       keepItalyRelevant(
-        { title: 'Dev', company: 'X', location: 'Tokyo', description: 'backend role' },
+        {
+          source: 'Jobicy',
+          title: 'Dev',
+          company: 'X',
+          location: 'Europe',
+          description: 'backend role',
+        },
+        profile,
+      ),
+      true,
+    );
+  });
+
+  it('keepItalyRelevant scarta annunci senza legame con Italia', () => {
+    const profile = {
+      italyKeywords: ['milano', 'roma', 'italia'],
+      euRemoteKeywords: ['europe'],
+      remoteSources: ['Jobicy'],
+    };
+    assert.equal(
+      keepItalyRelevant(
+        { source: 'Jobicy', title: 'Dev', company: 'X', location: 'Tokyo', description: 'backend role' },
         profile,
       ),
       false,

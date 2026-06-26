@@ -8,6 +8,9 @@ const parser = new Parser({
     'User-Agent': 'JobDigestIT/1.0 (+https://github.com)',
     Accept: 'application/rss+xml, application/xml, text/xml',
   },
+  customFields: {
+    item: ['region', 'company', 'dc:creator'],
+  },
 });
 
 function hashId(source, url) {
@@ -35,20 +38,24 @@ export async function fetchRssJobs(profile) {
 
         const title = item.title ?? 'Senza titolo';
         const description = stripHtml(item.contentSnippet ?? item.content ?? item.summary ?? '');
-        const blob = `${title} ${description} ${item.categories?.join(' ') ?? ''}`;
+        const blob = `${title} ${description} ${item.categories?.join(' ') ?? ''} ${item.region ?? ''}`;
 
         if (feed.requireItaly && !mentionsItaly(blob, profile)) {
           continue;
         }
 
-        const company = extractCompany(title, description, item);
+        const parsedTitle = parseFeedTitle(title);
+        const company = extractCompany(parsedTitle, description, item);
         const location =
-          extractLocation(blob) ?? extractLocationFromUrl(link) ?? (feed.assumeItaly ? 'Italia' : 'Da verificare');
+          item.region?.trim() ||
+          extractLocation(blob) ||
+          extractLocationFromUrl(link) ||
+          (feed.assumeItaly ? 'Italia' : 'Da verificare');
 
         jobs.push({
           id: hashId(feed.name, link),
           source: feed.name,
-          title,
+          title: parsedTitle.title,
           company,
           location,
           country: feed.assumeItaly || mentionsItaly(blob, profile) ? 'Italia' : null,
@@ -69,15 +76,28 @@ export async function fetchRssJobs(profile) {
   return jobs;
 }
 
-function extractCompany(title, description, item) {
+function extractCompany(parsedTitle, description, item) {
+  const fromTag = item.company?.trim();
+  if (fromTag) return fromTag;
+
   const creator = item.creator ?? item['dc:creator'];
   if (creator) return creator.trim();
 
+  if (parsedTitle.company) return parsedTitle.company;
+
+  const title = parsedTitle.title;
   const match = description.match(/(?:company|azienda|employer)[:\s]+([^\n|,.]+)/i);
   if (match) return match[1].trim();
   const atMatch = title.match(/@\s*([^|()]+)/);
   if (atMatch) return atMatch[1].trim();
   return 'Da feed esterno';
+}
+
+function parseFeedTitle(title) {
+  const raw = (title ?? '').trim();
+  const split = raw.match(/^([^:]+):\s*(.+)$/);
+  if (!split) return { company: null, title: raw || 'Senza titolo' };
+  return { company: split[1].trim(), title: split[2].trim() || raw };
 }
 
 function extractLocationFromUrl(url) {

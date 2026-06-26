@@ -1,4 +1,4 @@
-import { mentionsItaly } from '../filters/levelFilter.js';
+import { isRelevantListing } from '../filters/levelFilter.js';
 
 export const USER_AGENT = 'JobDigestIT/1.0 (+https://github.com)';
 
@@ -38,10 +38,7 @@ export function apiOptions(profile, key) {
 }
 
 export function keepItalyRelevant(job, profile) {
-  if (job.country && job.country.toLowerCase().includes('ital')) {
-    return true;
-  }
-  return mentionsItaly(jobBlob(job), profile);
+  return isRelevantListing(job, profile);
 }
 
 export async function fetchJson(url, options = {}) {

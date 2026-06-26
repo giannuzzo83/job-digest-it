@@ -78,7 +78,7 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 
 | Data | Nota |
 |------|------|
-| 2026-06-26 | Ampliate fonti gratuite: Jobicy, RemoteOK, Remotive, Arbeitnow + RSS IProgrammatori |
+| 2026-06-26 | Tuning filtri remote EU/EMEA, RSS We Work Remotely, fix keyword `eu` |
 
 ## Note per l'agente
 

@@ -93,11 +93,33 @@
     "smart working",
     "ibrido"
   ],
+  "euRemoteKeywords": [
+    "europe",
+    "european",
+    "emea",
+    "eea",
+    "worldwide",
+    "anywhere",
+    "work from anywhere",
+    "fully remote",
+    "remote first"
+  ],
+  "remoteSources": [
+    "Jobicy",
+    "Remote OK",
+    "Remotive",
+    "Arbeitnow",
+    "We Work Remotely"
+  ],
   "rssFeeds": [
     {
       "name": "IProgrammatori.it",
       "url": "https://www.iprogrammatori.it/rss/offerte-di-lavoro.xml",
       "assumeItaly": true
+    },
+    {
+      "name": "We Work Remotely",
+      "url": "https://weworkremotely.com/categories/remote-programming-jobs.rss"
     }
   ],
   "jobApis": {
