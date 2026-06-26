@@ -1,0 +1,34 @@
+---
+description: Convenzioni codice sorgente JavaScript in src/
+globs: src/**/*
+alwaysApply: false
+---
+
+# Sorgenti `src/`
+
+## Stile
+
+- ES modules con estensione `.js` negli import (`import x from './foo.js'`)
+- Funzioni pure dove possibile; side effect solo in entry (`run-digest.js`) e I/O (sources, email, db)
+- Prefisso log: `[nomeModulo]` in minuscolo
+- Normalizzazione testo: lowercase + NFD + rimozione diacritici (copiare pattern da `filters/levelFilter.js`)
+
+## Contratto job (fonti → pipeline)
+
+Ogni annuncio deve avere: `id`, `source`, `title`, `company`, `location`, `url`, `description`.
+Campi opzionali: `country`, `salaryMin`, `salaryMax`, `contractType`, `postedAt`.
+
+ID stabili: `adzuna:<id>` o hash da URL per RSS. Vedi @src/sources/adzuna.js e @src/sources/rss.js.
+
+## Estendere il progetto
+
+1. **Nuova fonte:** nuovo file in `src/sources/`, esportare funzione async che ritorna `Job[]`, registrare in @src/sources/index.js
+2. **Nuovo filtro:** aggiungere in `levelFilter.js` o chiamare da `scoreJob` in @src/scoring/matchJob.js
+3. **Nuovo test:** file `*.test.js` accanto al modulo, runner `node --test`
+
+## File di riferimento
+
+- Orchestrazione: @src/run-digest.js
+- Config/paths: @src/config.js
+- Scoring: @src/scoring/matchJob.js
+- Test esempio: @src/scoring/matchJob.test.js

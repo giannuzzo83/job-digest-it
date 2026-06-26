@@ -1,0 +1,28 @@
+---
+description: Contesto globale Job Digest IT — architettura, vincoli e comandi
+alwaysApply: true
+---
+
+# Job Digest IT
+
+App Node.js (ESM) che invia un digest email giornaliero di offerte lavoro in Italia, filtrate mid+ e matchate su `config/profile.json`.
+
+## Riferimenti rapidi
+
+- Istruzioni complete: @AGENTS.md
+- Stato e backlog: @.cursor/MEMORIA.md
+- Entry point: @src/run-digest.js
+- Profilo utente: @config/profile.json
+
+## Regole operative
+
+- Lingua utente: italiano (log, email, doc)
+- Stack minimo: Node 18+, nessun bundler/TS salvo richiesta esplicita
+- Segreti solo in `.env` (mai in git)
+- Test: `npm test` prima di concludere modifiche a scoring/filtri
+- Anteprima sicura: `npm run digest:dry`
+- Nuove fonti job: adapter in `src/sources/`, formato job unificato, no scraping LinkedIn/Indeed
+
+## Struttura moduli
+
+`sources/` → raccolta | `filters/` → mid+/Italia | `scoring/` → punteggio | `email/` → SMTP | `storage/` → SQLite dedup
