@@ -2,6 +2,85 @@ const NEGATIVE_RE = /\b(junior|jr\.?|trainee|stage|stagista|tirocinio|tirocinant
 
 const POSITIVE_RE = /\b(mid|medior|intermedio|middle|senior|esperto|specialist|3[\s-]?5\s*anni|2[\s-]?3\s*anni|[3-9]\+?\s*anni)\b/i;
 
+const DEFAULT_FOREIGN_LOCATION_KEYWORDS = [
+  'germany',
+  'deutschland',
+  'munich',
+  'munchen',
+  'berlin',
+  'frankfurt',
+  'hamburg',
+  'cologne',
+  'koln',
+  'dusseldorf',
+  'bavaria',
+  'bayern',
+  'france',
+  'paris',
+  'lyon',
+  'marseille',
+  'spain',
+  'espana',
+  'madrid',
+  'barcelona',
+  'portugal',
+  'lisbon',
+  'lisboa',
+  'united kingdom',
+  'london',
+  'england',
+  'scotland',
+  'manchester',
+  'netherlands',
+  'holland',
+  'amsterdam',
+  'rotterdam',
+  'belgium',
+  'brussels',
+  'bruxelles',
+  'switzerland',
+  'schweiz',
+  'zurich',
+  'geneva',
+  'bern',
+  'austria',
+  'wien',
+  'vienna',
+  'poland',
+  'warsaw',
+  'krakow',
+  'czech',
+  'prague',
+  'praha',
+  'romania',
+  'bucharest',
+  'hungary',
+  'budapest',
+  'sweden',
+  'stockholm',
+  'denmark',
+  'copenhagen',
+  'norway',
+  'oslo',
+  'finland',
+  'helsinki',
+  'ireland',
+  'dublin',
+  'united states',
+  'new york',
+  'san francisco',
+  'california',
+  'canada',
+  'toronto',
+  'vancouver',
+  'india',
+  'bangalore',
+  'mumbai',
+  'australia',
+  'sydney',
+  'melbourne',
+];
+
 export function isMidOrAbove(text, profile) {
   const haystack = normalize(text);
   if (!haystack) return true;
@@ -74,9 +153,26 @@ export function isRemoteJobSource(job, profile) {
   return sources.includes(job.source);
 }
 
+export function hasExplicitForeignLocation(job, profile) {
+  if (job.country && !normalize(job.country).includes('ital')) {
+    return true;
+  }
+
+  const location = normalize(job.location ?? '');
+  if (!location) return false;
+  if (mentionsItaly(location, profile)) return false;
+
+  const keywords = profile.foreignLocationKeywords ?? DEFAULT_FOREIGN_LOCATION_KEYWORDS;
+  return keywords.some((kw) => keywordMatches(location, kw));
+}
+
 export function isRelevantListing(job, profile) {
   if (isItalianListing(job, profile)) {
     return true;
+  }
+
+  if (hasExplicitForeignLocation(job, profile)) {
+    return false;
   }
 
   if (!isRemoteJobSource(job, profile)) {

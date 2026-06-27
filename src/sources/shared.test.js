@@ -74,4 +74,25 @@ describe('sources/shared', () => {
       false,
     );
   });
+
+  it('keepItalyRelevant scarta sedi in Germania anche con keyword EU nel testo', () => {
+    const profile = {
+      italyKeywords: ['milano', 'roma', 'italia'],
+      euRemoteKeywords: ['europe', 'emea'],
+      remoteSources: ['Arbeitnow'],
+    };
+    assert.equal(
+      keepItalyRelevant(
+        {
+          source: 'Arbeitnow',
+          title: 'Staff Backend Engineer',
+          company: 'Apaleo',
+          location: 'München, Bavaria, Germany',
+          description: 'European company based in Munich',
+        },
+        profile,
+      ),
+      false,
+    );
+  });
 });
