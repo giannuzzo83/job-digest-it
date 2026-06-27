@@ -36,6 +36,7 @@ export async function fetchArbeitnowJobs(profile) {
           company: item.company_name ?? 'Azienda non indicata',
           location: item.remote ? `${location || 'Remote'} (remoto)`.trim() : location || 'Europa',
           country,
+          remote: Boolean(item.remote),
           url: item.url,
           description: stripHtml(item.description),
           salaryMin: null,

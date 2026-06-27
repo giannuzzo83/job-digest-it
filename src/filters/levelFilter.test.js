@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { isRelevantListing, mentionsEuRemote } from '../filters/levelFilter.js';
+import { hasExplicitForeignLocation, isRelevantListing, mentionsEuRemote } from '../filters/levelFilter.js';
 
 const profile = {
   italyKeywords: ['italia', 'milano', 'roma'],
@@ -58,6 +58,50 @@ describe('filters/levelFilter remote', () => {
           country: 'Italia',
         },
         profile,
+      ),
+      true,
+    );
+  });
+
+  it('isRelevantListing scarta sedi estere esplicite anche da fonti remote', () => {
+    assert.equal(
+      hasExplicitForeignLocation(
+        {
+          title: 'Staff Backend Engineer',
+          company: 'Apaleo',
+          location: 'München, Bavaria, Germany',
+          description: 'European fintech',
+        },
+        profile,
+      ),
+      true,
+    );
+    assert.equal(
+      isRelevantListing(
+        {
+          source: 'Arbeitnow',
+          title: 'Staff Backend Engineer (.NET)',
+          company: 'Apaleo',
+          location: 'München, Bavaria, Germany',
+          description: 'We are a European company hiring in Munich',
+        },
+        { ...profile, remoteSources: ['Arbeitnow'] },
+      ),
+      false,
+    );
+  });
+
+  it('isRelevantListing mantiene remote EU senza sede estera esplicita', () => {
+    assert.equal(
+      isRelevantListing(
+        {
+          source: 'Arbeitnow',
+          title: 'Backend Engineer',
+          company: 'Acme',
+          location: 'Remote (Europe)',
+          description: 'Fully remote role for European candidates',
+        },
+        { ...profile, remoteSources: ['Arbeitnow'] },
       ),
       true,
     );
