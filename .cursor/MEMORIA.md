@@ -21,8 +21,10 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Scoring profilo | ✅ Soglia default **60%** |
 | Email HTML | ✅ Codice pronto — **SMTP mancante** |
 | Dedup SQLite | ✅ `storage/db.js`, purge 60 giorni |
+| Web app annunci | ✅ `npm run web`, snapshot ad ogni digest |
+| App Android | ✅ `android/` — Compose, collegamento API locale |
 | GitHub Actions | ✅ Workflow pronto — **secrets non configurati** |
-| Test unitari | ✅ 31 test |
+| Test unitari | ✅ 32 test |
 
 ## Profilo utente di riferimento
 
@@ -64,6 +66,8 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 ### Bassa priorità / esplorazione
 - [x] Altre API job gratuite (Jobicy, RemoteOK, Remotive, Arbeitnow, Himalayas, RemoteJobs.org, Jooble)
 - [ ] Mini dashboard locale (Express + lettura DB)
+- [x] Web app annunci navigabile (`npm run web`, snapshot in SQLite)
+- [x] App Android Compose (`android/`, API locale da `npm run web`)
 - [ ] Export CSV settimanale degli annunci inviati
 - [ ] Supporto multi-profilo (più destinatari)
 
@@ -162,10 +166,20 @@ Poi in `config/profile.json`: `jobApis.linkedin.enabled = true` (account LinkedI
 
 Stato: **in attesa che l'utente esegua la checklist sopra da PC.** L'utente ha confermato che lo farà più tardi; al messaggio «sono al PC» riprendere da §1.
 
+### Check web app + Android (da fare quando non sei da telefono)
+
+- [ ] **Verifica web app** — da PC: `git pull`, `npm install`, `npm run digest:dry`, `npm run web`, apri `http://localhost:3847`
+- [ ] Controlla ricerca, filtri (fonte, score, solo email), dettaglio annuncio e link esterno
+- [ ] (Opzionale) Imposta `WEB_TOKEN` in `.env` e prova `?token=...`
+- [ ] **Build app Android** — apri cartella `android/` in Android Studio, compila APK (vedi `android/README.md`)
+- [ ] Sul telefono: stessa Wi‑Fi del PC, in app imposta URL `http://IP_DEL_PC:3847` (+ token se attivo)
+- [ ] Verifica lista annunci, pull-to-refresh, dettaglio e apertura link annuncio da telefono
+
 ## Cronologia sessioni
 
 | Data | Nota |
 |------|------|
+| 2026-06-28 | Web app annunci navigabile (`npm run web`) + app Android Compose |
 | 2026-06-28 | Filtro sedi estere (fix München); fonte LinkedIn guest/browser/hybrid; 31 test |
 | 2026-06-26 | Jooble + Himalayas + RemoteJobs.org su `main`; checklist PC in memoria; merge completo |
 | 2026-06-26 | Tag AI ⭐, soglia 60%, keyword vibe/copilot/llm |

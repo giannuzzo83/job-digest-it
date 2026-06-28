@@ -37,6 +37,6 @@ export function initEnv() {
 
 export const paths = {
   rootDir,
-  dataDir: path.join(rootDir, 'data'),
-  dbPath: path.join(rootDir, 'data', 'jobs.db'),
+  dataDir: process.env.JOBS_DATA_DIR ?? path.join(rootDir, 'data'),
+  dbPath: process.env.JOBS_DB_PATH ?? path.join(rootDir, 'data', 'jobs.db'),
 };

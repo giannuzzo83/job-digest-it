@@ -59,6 +59,12 @@ npm run digest
 # Test unitari scoring/filtri
 npm test
 
+# Web app per navigare gli annunci (dopo almeno un digest:dry o digest)
+npm run web
+# Apri http://localhost:3847 — opzionale WEB_TOKEN in .env per protezione
+
+# App Android (apri android/ in Android Studio — vedi android/README.md)
+
 # LinkedIn (opzionale, solo PC locale)
 npx playwright install chromium   # una tantum
 npm run linkedin:test             # prova senza login
@@ -122,7 +128,8 @@ src/
 ├── scoring/           # match profilo
 ├── filters/           # mid+, Italia
 ├── email/             # HTML + invio SMTP
-└── storage/           # SQLite dedup
+├── web/               # server HTTP + UI annunci
+└── storage/           # SQLite dedup + snapshot digest
 ```
 
 ## Licenza

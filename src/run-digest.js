@@ -5,7 +5,7 @@ import { initEnv, loadProfile, paths } from './config.js';
 import { buildDigestEmail, sendDigestEmail } from './email/sendDigest.js';
 import { filterAndRankJobs } from './scoring/matchJob.js';
 import { fetchAllJobs } from './sources/index.js';
-import { markJobsSent, purgeOldSent, wasAlreadySent } from './storage/db.js';
+import { markJobsSent, purgeOldSent, saveDigestRun, wasAlreadySent } from './storage/db.js';
 
 initEnv();
 
@@ -35,6 +35,14 @@ async function main() {
   const fresh = ranked.filter((job) => !wasAlreadySent(job.id));
   const selected = fresh.slice(0, maxJobs);
   console.log(`[digest] ${selected.length} nuovi da inviare (max ${maxJobs})`);
+
+  const snapshotId = saveDigestRun({
+    minScore,
+    totalRaw: rawJobs.length,
+    jobs: ranked,
+    selectedIds: selected.map((job) => job.id),
+  });
+  console.log(`[digest] Snapshot web salvato (#${snapshotId}, ${ranked.length} annunci)`);
 
   const emailContent = buildDigestEmail({ jobs: selected, profile });
 
