@@ -146,7 +146,8 @@
     "Arbeitnow",
     "We Work Remotely",
     "Himalayas",
-    "RemoteJobs.org"
+    "RemoteJobs.org",
+    "LinkedIn"
   ],
   "rssFeeds": [
     {
@@ -176,6 +177,16 @@
       "category": "programming",
       "limit": 30,
       "queries": ["c#", ".net", "unity", "game developer", "software engineer"]
+    },
+    "linkedin": {
+      "enabled": false,
+      "queries": [],
+      "location": "Italia",
+      "maxJobsPerQuery": 15,
+      "maxScrolls": 5,
+      "postedWithin": "24h",
+      "fetchDescriptions": true,
+      "headless": true
     }
   }
 }
