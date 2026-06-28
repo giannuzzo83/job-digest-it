@@ -21,8 +21,9 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Scoring profilo | ✅ Soglia default **60%** |
 | Email HTML | ✅ Codice pronto — **SMTP mancante** |
 | Dedup SQLite | ✅ `storage/db.js`, purge 60 giorni |
+| Web app annunci | ✅ `npm run web`, snapshot ad ogni digest |
 | GitHub Actions | ✅ Workflow pronto — **secrets non configurati** |
-| Test unitari | ✅ 31 test |
+| Test unitari | ✅ 32 test |
 
 ## Profilo utente di riferimento
 
@@ -64,6 +65,7 @@ Personalizzabile senza toccare il codice: skills con peso, `searchQueries`, `exc
 ### Bassa priorità / esplorazione
 - [x] Altre API job gratuite (Jobicy, RemoteOK, Remotive, Arbeitnow, Himalayas, RemoteJobs.org, Jooble)
 - [ ] Mini dashboard locale (Express + lettura DB)
+- [x] Web app annunci navigabile (`npm run web`, snapshot in SQLite)
 - [ ] Export CSV settimanale degli annunci inviati
 - [ ] Supporto multi-profilo (più destinatari)
 

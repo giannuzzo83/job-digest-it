@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Digest IT</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Job Digest IT</h1>
+      <p id="run-meta">Caricamento annunci…</p>
+    </div>
+    <div class="controls">
+      <label class="field">
+        <span>Snapshot</span>
+        <select id="run-select" aria-label="Seleziona snapshot"></select>
+      </label>
+      <label class="field grow">
+        <span>Cerca</span>
+        <input id="search" type="search" placeholder="Titolo, azienda, skill…" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>Fonte</span>
+        <select id="source-filter" aria-label="Filtra per fonte">
+          <option value="">Tutte</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Score min</span>
+        <input id="min-score" type="number" min="0" max="100" value="60">
+      </label>
+      <label class="checkbox">
+        <input id="email-only" type="checkbox">
+        Solo in email
+      </label>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="list-panel">
+      <div class="list-header">
+        <h2 id="results-count">0 annunci</h2>
+        <p class="hint">Ordinati per match decrescente</p>
+      </div>
+      <div id="job-list" class="job-list" role="list"></div>
+      <p id="empty-state" class="empty hidden">Nessun annuncio corrisponde ai filtri.</p>
+    </section>
+
+    <aside id="detail-panel" class="detail-panel hidden" aria-live="polite">
+      <button id="close-detail" class="icon-btn" type="button" aria-label="Chiudi dettaglio">×</button>
+      <div id="detail-content"></div>
+    </aside>
+  </main>
+
+  <template id="job-card-template">
+    <article class="job-card" role="listitem" tabindex="0">
+      <div class="job-card-top">
+        <span class="score-badge"></span>
+        <span class="source-pill"></span>
+      </div>
+      <h3 class="job-title"></h3>
+      <p class="job-meta"></p>
+      <div class="tag-row"></div>
+      <div class="badge-row"></div>
+    </article>
+  </template>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
