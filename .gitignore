@@ -4,3 +4,11 @@ data/
 *.db
 .DS_Store
 data/linkedin-session.json
+
+# Android
+android/.gradle/
+android/.idea/
+android/local.properties
+android/**/build/
+android/**/.cxx/
+*.iml

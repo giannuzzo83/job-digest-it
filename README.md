@@ -63,6 +63,8 @@ npm test
 npm run web
 # Apri http://localhost:3847 — opzionale WEB_TOKEN in .env per protezione
 
+# App Android (apri android/ in Android Studio — vedi android/README.md)
+
 # LinkedIn (opzionale, solo PC locale)
 npx playwright install chromium   # una tantum
 npm run linkedin:test             # prova senza login

@@ -11,6 +11,7 @@ initEnv();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, 'public');
 const port = Number(process.env.WEB_PORT ?? 3847);
+const host = process.env.WEB_HOST ?? '0.0.0.0';
 const webToken = process.env.WEB_TOKEN?.trim() || '';
 
 const mimeTypes = {
@@ -123,8 +124,11 @@ const server = http.createServer(async (req, res) => {
   serveStatic(req, res, url);
 });
 
-server.listen(port, () => {
+server.listen(port, host, () => {
   console.log(`[web] Job Digest IT — http://localhost:${port}`);
+  if (host === '0.0.0.0') {
+    console.log(`[web] Rete locale: http://<IP-del-PC>:${port} (per app Android)`);
+  }
   if (webToken) {
     console.log('[web] Protezione attiva: usa ?token=... oppure Authorization: Bearer');
   } else {
