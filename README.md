@@ -58,6 +58,11 @@ npm run digest
 
 # Test unitari scoring/filtri
 npm test
+
+# LinkedIn (opzionale, solo PC locale)
+npx playwright install chromium   # una tantum
+npm run linkedin:test             # prova senza login
+npm run linkedin:login            # login manuale per browser/hybrid
 ```
 
 ## Automazione gratuita (GitHub Actions)
@@ -104,8 +109,9 @@ Opzionale in **Variables**: `DIGEST_MAX_JOBS`, `DIGEST_MIN_SCORE`.
 | **Himalayas** | Remote con sede IT | API gratuita, `country=italy` |
 | **RemoteJobs.org** | Remote programming | API gratuita, ricerca per keyword |
 | **We Work Remotely** | Remote programming | RSS gratuito, filtrato con keyword EU/Italia |
+| **LinkedIn** | Italia / EU | Opzionale, `guest` / `browser` / `hybrid` — solo PC locale |
 
-Non usiamo LinkedIn/Indeed scraping (ToS restrittivi). Puoi aggiungere feed RSS italiani in `profile.json` se ne trovi di pubblici.
+LinkedIn è disabilitato di default (`jobApis.linkedin.enabled: false`). Indeed resta escluso (ToS). Puoi aggiungere feed RSS italiani in `profile.json`.
 
 ## Architettura
 

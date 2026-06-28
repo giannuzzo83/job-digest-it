@@ -181,10 +181,14 @@
     "linkedin": {
       "enabled": false,
       "mode": "hybrid",
-      "queries": [],
+      "queries": [
+        "sviluppatore C#",
+        "sviluppatore .NET",
+        "Unity developer"
+      ],
       "location": "Italia",
-      "maxJobsPerQuery": 15,
-      "maxScrolls": 5,
+      "maxJobsPerQuery": 10,
+      "maxScrolls": 4,
       "postedWithin": "24h",
       "fetchDescriptions": true,
       "headless": false

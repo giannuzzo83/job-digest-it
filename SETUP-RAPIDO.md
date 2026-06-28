@@ -64,4 +64,30 @@ Il workflow parte ogni mattina alle ~09:00 (ora IT).
 npm run digest:dry              # anteprima in console
 npm run digest                  # invia email
 node src/run-digest.js --save-html   # salva HTML in data/
+
+# LinkedIn (opzionale, solo sul PC)
+npx playwright install chromium # una tantum, dopo npm install
+npm run linkedin:test           # prova senza login (modalità guest)
+npm run linkedin:login          # login manuale per modalità browser/hybrid
 ```
+
+---
+
+## LinkedIn (opzionale, da PC)
+
+La fonte è **disabilitata di default**. Per attivarla dopo `git pull`:
+
+1. `npm install && npx playwright install chromium`
+2. Prova senza login: `npm run linkedin:test`
+3. Se vuoi più risultati italiani, login browser: `npm run linkedin:login`
+4. In `config/profile.json` → `jobApis.linkedin.enabled = true`
+5. Modalità consigliata: `"mode": "hybrid"` (guest + fallback browser)
+
+| Modalità | Login | Quando usarla |
+|----------|-------|---------------|
+| `guest` | No | Prima prova, veloce |
+| `browser` | Sì | Più annunci con sessione italiana |
+| `hybrid` | Opzionale | Default — guest prima, browser se bloccato |
+
+**Attenzione:** usa un account LinkedIn **secondario** (rischio ban ToS). Non usare su GitHub Actions.
+

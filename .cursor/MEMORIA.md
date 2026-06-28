@@ -15,13 +15,14 @@ Documento di contesto persistente per sessioni future. **Aggiornare questo file*
 | Fonte Himalayas | ✅ Attiva senza chiavi |
 | Fonte RemoteJobs.org | ✅ Attiva senza chiavi |
 | Fonte RSS | ✅ IProgrammatori + We Work Remotely |
+| Fonte LinkedIn | ✅ Opzionale (guest/browser/hybrid) — **disabilitata, setup da PC** |
 | Tag AI con ⭐ | ✅ `highlightTags` in profile (copilot, llm, vibe coding, ecc.) |
-| Filtri mid+ / Italia / remote EU | ✅ `levelFilter.js` |
+| Filtri mid+ / Italia / sedi estere | ✅ `levelFilter.js` (fix Germania/München) |
 | Scoring profilo | ✅ Soglia default **60%** |
 | Email HTML | ✅ Codice pronto — **SMTP mancante** |
 | Dedup SQLite | ✅ `storage/db.js`, purge 60 giorni |
 | GitHub Actions | ✅ Workflow pronto — **secrets non configurati** |
-| Test unitari | ✅ 19 test |
+| Test unitari | ✅ 31 test |
 
 ## Profilo utente di riferimento
 
@@ -142,10 +143,20 @@ Poi: **Actions → Daily job digest → Run workflow** (branch `main`).
 0 8 * * * cd /percorso/job-digest-it && npm run digest >> /tmp/job-digest.log 2>&1
 ```
 
+### 7. (Opzionale) LinkedIn
+
+```bash
+npx playwright install chromium   # una tantum
+npm run linkedin:test           # prova guest senza login
+npm run linkedin:login          # solo se serve modalità browser/hybrid
+```
+
+Poi in `config/profile.json`: `jobApis.linkedin.enabled = true` (account LinkedIn **secondario**).
+
 ### Cosa NON serve fare da PC
 
 - Nessuna modifica codice per Jooble/Himalayas/fonti — già su `main`
-- LinkedIn/Indeed — esclusi per ToS
+- LinkedIn è opzionale e disabilitato di default
 
 ## Pendente utente
 
@@ -155,6 +166,7 @@ Stato: **in attesa che l'utente esegua la checklist sopra da PC.** L'utente ha c
 
 | Data | Nota |
 |------|------|
+| 2026-06-28 | Filtro sedi estere (fix München); fonte LinkedIn guest/browser/hybrid; 31 test |
 | 2026-06-26 | Jooble + Himalayas + RemoteJobs.org su `main`; checklist PC in memoria; merge completo |
 | 2026-06-26 | Tag AI ⭐, soglia 60%, keyword vibe/copilot/llm |
 | 2026-06-26 | Merge PR #2 fonti gratuite; setup email rimandato a PC |

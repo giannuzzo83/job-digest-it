@@ -9,6 +9,7 @@
     "digest:dry": "node src/run-digest.js --dry-run",
     "setup": "node scripts/setup.mjs",
     "linkedin:login": "node scripts/linkedin-login.mjs",
+    "linkedin:test": "node scripts/linkedin-test.mjs",
     "test": "node --test $(find src -name '*.test.js' -print | sort)"
   },
   "engines": {
