@@ -70,7 +70,11 @@ ID formato: `adzuna:<id>`, `jobicy:<id>`, `remoteok:<id>`, `remotive:<id>`, `arb
 - Log con prefisso `[modulo]` (es. `[digest]`, `[adzuna]`, `[rss]`)
 - Normalizzazione testo: lowercase, NFD, strip accenti (vedi `levelFilter.js` / `matchJob.js`)
 - Nuove fonti: implementare fetch che ritorna array di job normalizzati, registrarle in `sources/index.js`
-- **LinkedIn (opzionale):** solo locale con Playwright + `npm run linkedin:login`; disabilitato di default (`jobApis.linkedin.enabled: false`); non usare su GitHub Actions
+- **LinkedIn (opzionale):** tre modalità in `jobApis.linkedin.mode`:
+  - `guest` — API pubblica `/jobs-guest/` (senza login, più stabile per listing)
+  - `browser` — Playwright con sessione (`npm run linkedin:login`)
+  - `hybrid` (default) — guest prima, fallback browser se bloccato
+  Disabilitato di default; solo locale, non GitHub Actions
 - Non introdurre scraping Indeed (ToS restrittivi); preferire API/feed pubblici
 
 ## Cosa NON fare

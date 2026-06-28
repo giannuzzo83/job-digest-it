@@ -180,13 +180,14 @@
     },
     "linkedin": {
       "enabled": false,
+      "mode": "hybrid",
       "queries": [],
       "location": "Italia",
       "maxJobsPerQuery": 15,
       "maxScrolls": 5,
       "postedWithin": "24h",
       "fetchDescriptions": true,
-      "headless": true
+      "headless": false
     }
   }
 }

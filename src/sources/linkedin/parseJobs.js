@@ -1,8 +1,11 @@
 import { buildJobId } from '../shared.js';
 
 export function extractJobIdFromUrl(url) {
-  const match = String(url ?? '').match(/jobs\/view\/(\d+)/);
-  return match?.[1] ?? null;
+  const value = String(url ?? '');
+  const numeric = value.match(/jobs\/view\/(\d+)/);
+  if (numeric) return numeric[1];
+  const slug = value.match(/jobs\/view\/[^/?]+-(\d+)/);
+  return slug?.[1] ?? null;
 }
 
 export function normalizeLinkedInJob(raw) {
